@@ -1,7 +1,7 @@
 OBJDIR = obj
 SRCDIR = src
 INCLUDEDIR = include
-OBJS = $(patsubst $(SRCDIR)/%.cpp, %.o, $(wildcard $(SRCDIR)/*.cpp))
+OBJS = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(wildcard $(SRCDIR)/*.cpp))
 
 
 .PHONY: all clean
@@ -9,10 +9,10 @@ OBJS = $(patsubst $(SRCDIR)/%.cpp, %.o, $(wildcard $(SRCDIR)/*.cpp))
 all: taggart
 
 taggart: $(OBJS)
-	$(CXX) -o $@ $(patsubst %, $(OBJDIR)/%, $^) -I $(INCLUDEDIR)
+	$(CXX) -I $(INCLUDEDIR) -o $@ $^
 
-%.o : $(SRCDIR)/%.cpp
-	$(CXX) -o $(OBJDIR)/$@ -c $^ -I $(INCLUDEDIR)
+$(OBJDIR)/%.o : $(SRCDIR)/%.cpp
+	$(CXX) -I $(INCLUDEDIR) -o $@ -c $^
 
 clean:
-	rm -f $(TARGETS) $(OBJ)
+	rm -f obj/* taggart
