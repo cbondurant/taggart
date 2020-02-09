@@ -1,11 +1,12 @@
+#pragma once
 #include <vector>
 #include <iostream>
 
 class ID3v2TagFrame{
 
+private:
     char ID[5];
     size_t size;
-    uint8_t statusFlags, formatFlags;
     char *data;
 public:
     enum statusFlag { // TODO: Document and possibly rename these flags
@@ -21,7 +22,19 @@ public:
         UNSYNC = 1<<1,
         DATA_LEN_IND = 1<<0
     };
+private:
+    statusFlag statusFlags;
+    formatFlag formatFlags;
 
-    ID3v2TagFrame(std::istream& in);
+public:
+    ID3v2TagFrame(std::istream&);
+
+    void setFlags(ID3v2TagFrame::statusFlag);
+    void setFlags(ID3v2TagFrame::formatFlag);
+
+    bool flagIsset(ID3v2TagFrame::statusFlag);
+    bool flagIsset(ID3v2TagFrame::formatFlag);
+
+    void getData();
 
 };

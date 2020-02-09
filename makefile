@@ -12,7 +12,7 @@ taggart: $(OBJS)
 	$(CXX) -I $(INCLUDEDIR) -o $@ $^
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
-	$(CXX) -I $(INCLUDEDIR) -o $@ -c $^
+	$(CXX) -I $(INCLUDEDIR) -o $@ -c $^ -g
 
 clean:
 	rm -f obj/* taggart
